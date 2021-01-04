@@ -9,22 +9,59 @@ Page {
 
     SilicaListView {
         id: listView
-        model: 20
+        PullDownMenu {
+            MenuItem {
+                text: "Добавить задачу"
+                onClicked: {
+                    var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
+                    taskDialog.accepted.connect(function() {
+                        var element = {name: '' + taskDialog.dialogTaskName, date: '' + taskDialog.dialogTaskDate,
+                        time: '' + taskDialog.dialogTaskTime, textD: '' + taskDialog.dialogTaskText}
+                        taskList.append(element)
+                    })
+                }
+            }
+        }
+        model: ListModel {
+            id: taskList
+        }
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Nested Page")
+            title: qsTr("Список задач")
         }
-        delegate: BackgroundItem {
-            id: delegate
-
+        delegate: Column {
             Label {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Item") + " " + index
-                anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                text: 'Задача ' + index
+                color: Theme.highlightBackgroundColor
+                font.pixelSize: Theme.fontSizeLarge
             }
-            onClicked: console.log("Clicked " + index)
+            Label {
+                x: Theme.horizontalPageMargin * 2
+                text: name
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
+            Label {
+                x: Theme.horizontalPageMargin * 2
+                text: date
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
+            Label {
+                x: Theme.horizontalPageMargin * 2
+                text: time
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
+            Label {
+                x: Theme.horizontalPageMargin * 2
+                text: textD
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
         }
+
         VerticalScrollDecorator {}
     }
 }

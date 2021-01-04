@@ -11,19 +11,42 @@
 <context>
     <name>FirstPage</name>
     <message>
-        <source>Тут будет</source>
+        <source>Problem 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Тут будет текст из диалога</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Менеджер задач</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SecondPage</name>
     <message>
-        <source>Nested Page</source>
-        <translation>Unterseite</translation>
+        <source>Список задач</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TaskDialog</name>
+    <message>
+        <source>Имя задачи</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item</source>
-        <translation>Element</translation>
+        <source>Дата</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Время</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Текст задачи</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

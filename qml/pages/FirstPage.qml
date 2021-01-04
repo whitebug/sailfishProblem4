@@ -7,11 +7,23 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Менеджер задач")
+                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+            }
+        }
+
         Column {
             y: Theme.horizontalPageMargin
             id: column
             width: page.width
-            spacing: Theme.paddingLarge * 2
+            spacing: Theme.paddingLarge
+            Label {
+                x: Theme.horizontalPageMargin
+                text: qsTr("Problem 2")
+            }
+
             Button {
                 x: Theme.horizontalPageMargin
                 text: "Открыть диалог"
@@ -26,9 +38,16 @@ Page {
             Label {
                 id: label
                 x: Theme.horizontalPageMargin
-                text: qsTr("Тут будет")
+                width: parent.width - Theme.horizontalPageMargin * 2
+                text: qsTr("Тут будет текст из диалога")
                 color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                font.pixelSize: Theme.fontSizeLarge
+            }
+
+            Button {
+                x: Theme.horizontalPageMargin
+                text: "Открыть менеджер задач"
+                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
             }
         }
     }
