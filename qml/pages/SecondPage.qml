@@ -15,15 +15,15 @@ Page {
                 onClicked: {
                     var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
                     taskDialog.accepted.connect(function() {
-                        var time = taskDialog.dialogTaskTime.hour + ":"
-                                + taskDialog.dialogTaskTime.minute;
-                        var date = taskDialog.dialogTaskDate.day + " "
-                                + taskDialog.dialogTaskDate.month + " "
-                                + taskDialog.dialogTaskDate.year;
+                        var time = taskDialog.dialogTaskTime.getHours() +
+                                ':' + taskDialog.dialogTaskTime.getMinutes()
+                        var date = ('0' + taskDialog.dialogTaskDate.getDate()).slice(-2) + '/'
+                                + ('0' + (taskDialog.dialogTaskDate.getMonth()+1)).slice(-2) + '/'
+                                + taskDialog.dialogTaskDate.getFullYear()
                         var element = {
                             name: '' + taskDialog.dialogTaskName,
-                            date: '' + date,
-                            time: '' + time,
+                            date: date,
+                            time: time,
                             textD: '' + taskDialog.dialogTaskText}
                         taskList.append(element)
                     })
