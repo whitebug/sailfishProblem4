@@ -15,8 +15,16 @@ Page {
                 onClicked: {
                     var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
                     taskDialog.accepted.connect(function() {
-                        var element = {name: '' + taskDialog.dialogTaskName, date: '' + taskDialog.dialogTaskDate,
-                        time: '' + taskDialog.dialogTaskTime, textD: '' + taskDialog.dialogTaskText}
+                        var time = taskDialog.dialogTaskTime.hour + ":"
+                                + taskDialog.dialogTaskTime.minute;
+                        var date = taskDialog.dialogTaskDate.day + " "
+                                + taskDialog.dialogTaskDate.month + " "
+                                + taskDialog.dialogTaskDate.year;
+                        var element = {
+                            name: '' + taskDialog.dialogTaskName,
+                            date: '' + date,
+                            time: '' + time,
+                            textD: '' + taskDialog.dialogTaskText}
                         taskList.append(element)
                     })
                 }
@@ -30,9 +38,10 @@ Page {
             title: qsTr("Список задач")
         }
         delegate: Column {
+            spacing: Theme.paddingMedium
             Label {
                 x: Theme.horizontalPageMargin
-                text: 'Задача ' + index
+                text: 'Задача ' + (index + 1)
                 color: Theme.highlightBackgroundColor
                 font.pixelSize: Theme.fontSizeLarge
             }
@@ -59,6 +68,24 @@ Page {
                 text: textD
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeMedium
+            }
+            Row {
+                x: Theme.horizontalPageMargin
+                spacing: Theme.paddingMedium
+                Button {
+                    text: "Редактировать"
+                    onClicked: {
+                        var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
+                        taskDialog.accepted.connect(function() {
+                            var element = {name: '' + taskDialog.dialogTaskName, date: '' + taskDialog.dialogTaskDate,
+                            time: '' + taskDialog.dialogTaskTime, textD: '' + taskDialog.dialogTaskText}
+                            taskList.insert(element)
+                        })
+                    }
+                }
+                Button {
+                    text: "Удалить"
+                }
             }
         }
 
