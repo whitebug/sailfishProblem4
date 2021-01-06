@@ -4,7 +4,9 @@ import Sailfish.Silica 1.0
 Dialog {
     property alias dialogTaskName: taskName.text
     property alias dialogTaskDate: taskDate.date
+    property alias dialogDateText: taskDate.text
     property alias dialogTaskTime: taskTime.time
+    property alias dialogTimeText: taskTime.text
     property alias dialogTaskText: taskText.text
     SilicaFlickable {
         width: parent.width
@@ -25,7 +27,7 @@ Dialog {
             }
             Label {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Дата")
+                text: dialogDateText
                 id: taskDate
                 property date date: new Date()
             }
@@ -35,9 +37,12 @@ Dialog {
                 text: "Выберите дату"
 
                 onClicked: {
+                    var v = dialogTaskDate
                     var choosenDate = pageStack.push("Sailfish.Silica.DatePickerDialog");
                     choosenDate.accepted.connect(function(){
-                        taskDate.text = choosenDate.day + " " + choosenDate.month + " " + choosenDate.year;
+                        taskDate.text = ('0' + choosenDate.day).slice(-2) + '/'
+                                + ('0' + (choosenDate.month + 1)).slice(-2) + '/'
+                                + choosenDate.year;
                         taskDate.date = choosenDate.date;
                     })
                 }
@@ -45,7 +50,7 @@ Dialog {
             Label {
                 id: taskTime
                 x: Theme.horizontalPageMargin
-                text: qsTr("Время")
+                text: dialogTimeText
                 property date time: new Date()
             }
             Button {
@@ -56,7 +61,8 @@ Dialog {
                 onClicked: {
                     var choosenTime = pageStack.push("Sailfish.Silica.TimePickerDialog");
                     choosenTime.accepted.connect(function(){
-                        taskTime.text = choosenTime.hour + ":" + choosenTime.minute;
+                        taskTime.text = ('0' + choosenTime.hour).slice(-2) +
+                                              ':' + ('0' + choosenTime.minute).slice(-2);
                         taskTime.time = choosenTime.time;
                     })
                 }

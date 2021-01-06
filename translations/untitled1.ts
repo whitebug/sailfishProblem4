@@ -37,14 +37,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Дата</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Время</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Текст задачи</source>
         <translation type="unfinished"></translation>
     </message>

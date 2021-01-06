@@ -7,24 +7,38 @@ Page {
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
+    function getDateAsText(date) {
+        return ('0' + date.getDate()).slice(-2) + '/'
+                + ('0' + (date.getMonth()+1)).slice(-2) + '/'
+                + date.getFullYear();
+    }
+
+    function getTimeAsText(time) {
+        return ('0' + time.getHours()).slice(-2) + ':'
+                + ('0' + (time.getMinutes())).slice(-2);
+    }
+
     SilicaListView {
         id: listView
         PullDownMenu {
             MenuItem {
                 text: "Добавить задачу"
                 onClicked: {
-                    var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
+                    var taskDialog = pageStack.push(
+                                Qt.resolvedUrl("TaskDialog.qml"),
+                                {
+                                    dialogDateText: "Дата",
+                                    dialogTimeText: "Время"
+                                })
                     taskDialog.accepted.connect(function() {
-                        var time = taskDialog.dialogTaskTime.getHours() +
-                                ':' + taskDialog.dialogTaskTime.getMinutes()
-                        var date = ('0' + taskDialog.dialogTaskDate.getDate()).slice(-2) + '/'
-                                + ('0' + (taskDialog.dialogTaskDate.getMonth()+1)).slice(-2) + '/'
-                                + taskDialog.dialogTaskDate.getFullYear()
                         var element = {
-                            name: '' + taskDialog.dialogTaskName,
-                            date: date,
-                            time: time,
-                            textD: '' + taskDialog.dialogTaskText}
+                            name: taskDialog.dialogTaskName,
+                            date: taskDialog.dialogTaskDate,
+                            dateText: getDateAsText(taskDialog.dialogTaskDate),
+                            time: taskDialog.dialogTaskTime,
+                            timeText: getTimeAsText(taskDialog.dialogTaskTime),
+                            textD: taskDialog.dialogTaskText,
+                        }
                         taskList.append(element)
                     })
                 }
@@ -53,13 +67,13 @@ Page {
             }
             Label {
                 x: Theme.horizontalPageMargin * 2
-                text: date
+                text: dateText
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeMedium
             }
             Label {
                 x: Theme.horizontalPageMargin * 2
-                text: time
+                text: timeText
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeMedium
             }
@@ -75,16 +89,34 @@ Page {
                 Button {
                     text: "Редактировать"
                     onClicked: {
-                        var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"))
+                        var item = taskList.get(index);
+                        var taskDialog = pageStack.push(Qt.resolvedUrl("TaskDialog.qml"),
+                                                        {
+                                                            dialogTaskName: item.name,
+                                                            dialogTaskDate: item.date,
+                                                            dialogTaskTime: item.time,
+                                                            dialogTaskText: item.textD,
+                                                            dialogDateText: item.dateText,
+                                                            dialogTimeText: item.timeText
+                                                        })
                         taskDialog.accepted.connect(function() {
-                            var element = {name: '' + taskDialog.dialogTaskName, date: '' + taskDialog.dialogTaskDate,
-                            time: '' + taskDialog.dialogTaskTime, textD: '' + taskDialog.dialogTaskText}
-                            taskList.insert(element)
+                            var element = {
+                                name: taskDialog.dialogTaskName,
+                                date: taskDialog.dialogTaskDate,
+                                dateText: getDateAsText(taskDialog.dialogTaskDate),
+                                time: taskDialog.dialogTaskTime,
+                                timeText: getTimeAsText(taskDialog.dialogTaskTime),
+                                textD: taskDialog.dialogTaskText,
+                            }
+                            taskList.set(index,element)
                         })
                     }
                 }
                 Button {
                     text: "Удалить"
+                    onClicked: {
+                        taskList.remove(taskList.get(index))
+                    }
                 }
             }
         }
