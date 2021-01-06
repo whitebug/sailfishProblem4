@@ -49,6 +49,20 @@ Page {
                 text: "Открыть менеджер задач"
                 onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
             }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - Theme.horizontalPageMargin * 2
+                text: qsTr("Задача 5")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeLarge
+            }
+
+            Button {
+                x: Theme.horizontalPageMargin
+                text: "Открыть веб браузер"
+                onClicked: pageStack.push(Qt.resolvedUrl("WebPage.qml"))
+            }
         }
     }
 }
