@@ -5,7 +5,8 @@ CoverBackground {
     Label {
         id: label
         anchors.centerIn: parent
-        text: qsTr("My Cover")
+        text: valueInt
+        property int valueInt: 0
     }
 
     CoverActionList {
@@ -13,12 +14,12 @@ CoverBackground {
 
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
-            onTriggered: label.text = "next"
+            onTriggered: label.valueInt++
         }
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
-            onTriggered: label.text = "pause"
+            iconSource: "image://theme/icon-cover-previous"
+            onTriggered: label.valueInt--
         }
     }
 }
