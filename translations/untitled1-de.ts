@@ -26,6 +26,10 @@
         <source>Задача 5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Задача 6</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SecondPage</name>

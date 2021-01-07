@@ -63,6 +63,20 @@ Page {
                 text: "Открыть веб браузер"
                 onClicked: pageStack.push(Qt.resolvedUrl("WebPage.qml"))
             }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - Theme.horizontalPageMargin * 2
+                text: qsTr("Задача 6")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeLarge
+            }
+
+            Button {
+                x: Theme.horizontalPageMargin
+                text: "Открыть слайдшоу"
+                onClicked: pageStack.push(Qt.resolvedUrl("SlideShowPage.qml"))
+            }
         }
     }
 }

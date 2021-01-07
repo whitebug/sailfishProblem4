@@ -21,6 +21,7 @@ DISTFILES += qml/untitled1.qml \
     qml/pages/Dialog.qml \
     qml/pages/FirstPage.qml \
     qml/pages/SecondPage.qml \
+    qml/pages/SlideShowPage.qml \
     qml/pages/TaskDialog.qml \
     qml/pages/WebPage.qml \
     rpm/untitled1.changes.in \
